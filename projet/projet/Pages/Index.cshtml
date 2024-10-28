@@ -1,0 +1,41 @@
+﻿@page 
+﻿
+@using projet.Data
+@inject ProductService ProductService
+@model projet.Pages.IndexModel
+
+<form method="get" class="form-inline my-2 my-lg-0">
+    <input class="form-control mr-sm-2" type="search" aria-label="Search" name="SearchQuery" />
+    <br />
+    <br />
+    <select class="form-select" name="genre">
+        <option value="" selected>Select Category</option>
+        <option value="F">Women</option>
+        <option value="H">Men</option>
+        <option value="C">Children</option>
+    </select>
+    <br />
+    <button type="submit" class="btn btn-outline-success">Search</button>
+    <br />
+</form>
+<br />
+<br />
+
+<div class="row" id="productList">
+    @foreach (var product in Model.Products)
+    {
+        <div class="col-md-4 product-item" data-name="@product.Name.ToLower()">
+            <div class="card mb-4 box-shadow">
+                <img src="@product.ImageUrl" class="card-img-top" alt="@product.Name" />
+                <div class="card-body">
+                    <h5 class="card-title" id="product-name-@product.Id">@product.Name</h5>
+                    <p class="card-text" id="product-price-@product.Id">Price: @product.Price DH</p>
+
+                    <a asp-page-handler="AddToCart" asp-route-productId="@product.Id" class="btn btn-primary">Buy</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+
